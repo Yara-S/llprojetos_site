@@ -6,6 +6,7 @@ import Testimonial from "components/testimonials/TwoColumnWithImage.js";
 import ContactUsForm from "components/forms/SimpleSubscribeNewsletter.js";
 import Footer from "components/footers/MiniCenteredFooter.js";
 import Projetos from "components/features/DashedBorderSixFeatures.js"
+import Teste from "components/cards/ThreeColSlider.js"
 
 export default () => (
   <AnimationRevealPage>

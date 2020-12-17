@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import {
+      PopupboxManager,
+      PopupboxContainer
+    } from 'react-popupbox';
 //eslint-disable-next-line
 import { css } from "styled-components/macro";
 import { SectionHeading } from "components/misc/Headings.js";
@@ -8,11 +12,12 @@ import { SectionHeading } from "components/misc/Headings.js";
 import defaultCardImage from "../../images/flash.svg";
 
 import { ReactComponent as SvgDecoratorBlob3 } from "../../images/circuit.svg";
-
+import "react-popupbox/dist/react-popupbox.css"
 import Fire from "../../images/fire.svg";
 import Bolt from "../../images/flash.svg";
 import Law from "../../images/gdpr.svg";
 import Sun from "../../images/sun.svg";
+import Water from "../../images/agua.svg";
 import Consult from "../../images/brainstorming.svg";
 
 
@@ -35,6 +40,7 @@ const Card = styled.div`
       ${tw`w-8 h-8`}
     }
   }
+
 
   .textContainer {
     ${tw`mt-6 text-center w-48`}
@@ -70,19 +76,36 @@ export default () => {
     },
     { imageSrc: Sun, title: "Energia Solar" },
     { imageSrc: Fire, title: "Combate à incendio" },
-    { imageSrc: Law, title: "Hidro sanitário" },
+    { imageSrc: Water, title: "Hidro sanitário" },
     { imageSrc: Law, title: "Aprovação e Regularização nos orgãos competentes" },
     { imageSrc: Consult, title: "Consultoria" }
 
   ];
 
+
+  const openPopupbox=()=> {
+    console.log("entrei");
+        const content = (
+          <div>
+            <p className="quotes">Work like you don't need the money.</p>
+            <p className="quotes">Dance like no one is watching.</p>
+            <p className="quotes">And love like you've never been hurt.</p>
+            <span className="quotes-from">― Mark Twain</span>
+          </div>
+        )
+        PopupboxManager.open({ content })
+      };
+
   return (
+    <div>
     <Container>
       <ThreeColumnContainer>
         <Heading>Nosso Projetos e Serviços</Heading>
         {cards.map((card, i) => (
           <Column key={i}>
+          <button onClick={openPopupbox} >
             <Card>
+              
               <span className="imageContainer">
                 <img src={card.imageSrc || defaultCardImage} alt="" />
               </span>
@@ -91,12 +114,18 @@ export default () => {
                 <p className="description">
                   {card.description || ""}
                 </p>
+
               </span>
+              
             </Card>
+            </button>
+            
           </Column>
         ))}
       </ThreeColumnContainer>
       <DecoratorBlob />
     </Container>
+    <PopupboxContainer />
+    </div>
   );
 };
