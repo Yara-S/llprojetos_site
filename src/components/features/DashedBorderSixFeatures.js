@@ -19,7 +19,9 @@ import Law from "../../images/gdpr.svg";
 import Sun from "../../images/sun.svg";
 import Water from "../../images/agua.svg";
 import Consult from "../../images/brainstorming.svg";
-
+import PopUpCard from "components/cards/TabCardGrid.js"
+import Card  from 'react-bootstrap/Card'
+import Luciano from "../../images/luciano.PNG" 
 
 const Container = tw.div`relative`;
 
@@ -32,7 +34,7 @@ const Column = styled.div`
   ${tw`md:w-1/2 lg:w-1/3 px-6 flex`}
 `;
 
-const Card = styled.div`
+const Card2 = styled.div`
   ${tw`flex flex-col mx-auto max-w-xs items-center px-6 py-10 border-2 border-dashed border-primary-700 rounded-lg mt-12`}
   .imageContainer {
     ${tw`border-2 border-primary-700 text-center rounded-full p-6 flex-shrink-0 relative`}
@@ -72,29 +74,50 @@ export default () => {
     {
       imageSrc: Bolt,
       title: "Sistema de Proteção",
-      description: ""
+      description: "",
+      descriptionCard: "descricao card 1"
     },
-    { imageSrc: Sun, title: "Energia Solar" },
-    { imageSrc: Fire, title: "Combate à incendio" },
-    { imageSrc: Water, title: "Hidro sanitário" },
-    { imageSrc: Law, title: "Aprovação e Regularização nos orgãos competentes" },
-    { imageSrc: Consult, title: "Consultoria" }
+    { imageSrc: Sun, title: "Energia Solar" ,
+      descriptionCard: "descricao card 2"},
+    { imageSrc: Fire, title: "Combate à incendio" ,
+      descriptionCard: "descricao card 3"},
+    { imageSrc: Water, title: "Hidro sanitário" ,
+      descriptionCard: "descricao card 4"},
+    { imageSrc: Law, title: "Aprovação e Regularização nos orgãos competentes",
+      descriptionCard: "descricao card 5" },
+    { imageSrc: Consult, title: "Consultoria" ,
+      descriptionCard: "descricao card 6"}
 
   ];
 
+  var styleButton = {
+  display: 'flex',
+  justifyContent: 'center'
+}
 
-  const openPopupbox=()=> {
-    console.log("entrei");
+
+  const openPopupbox=card=> () =>  {
         const content = (
           <div>
-            <p className="quotes">Work like you don't need the money.</p>
-            <p className="quotes">Dance like no one is watching.</p>
-            <p className="quotes">And love like you've never been hurt.</p>
-            <span className="quotes-from">― Mark Twain</span>
+            <Card >
+                <Card.Img variant="top" src={Luciano}/>
+                <Card.Body>
+                  <Card.Title>Card Title</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk of
+                    the card's content.
+                  </Card.Text>
+                </Card.Body>
+          </Card>
           </div>
         )
         PopupboxManager.open({ content })
       };
+
+
+
+
+
 
   return (
     <div>
@@ -102,25 +125,29 @@ export default () => {
       <ThreeColumnContainer>
         <Heading>Nosso Projetos e Serviços</Heading>
         {cards.map((card, i) => (
+
           <Column key={i}>
-          <button onClick={openPopupbox} >
-            <Card>
-              
+          
+            <Card2>
+              <button onClick={openPopupbox(card)} style={styleButton}>
               <span className="imageContainer">
+              
                 <img src={card.imageSrc || defaultCardImage} alt="" />
+              
               </span>
+              </button>
               <span className="textContainer">
                 <span className="title">{card.title || "Fully Secure"}</span>
                 <p className="description">
                   {card.description || ""}
                 </p>
-
               </span>
-              
-            </Card>
-            </button>
+             
+            </Card2>
+            
             
           </Column>
+       
         ))}
       </ThreeColumnContainer>
       <DecoratorBlob />
